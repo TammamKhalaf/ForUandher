@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foruandher/models/product.dart';
+import 'file:///C:/Users/TAMMAM/foruandher/lib/providers/product.dart';
 import 'package:foruandher/widgets/product_item.dart';
 import 'package:foruandher/widgets/products_grid.dart';
 
