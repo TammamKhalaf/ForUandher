@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foruandher/providers/Cart.dart';
+import 'package:foruandher/screens/cart_screen.dart';
 import 'package:foruandher/widgets/badge.dart';
 import 'package:foruandher/widgets/products_grid.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               child: ch,
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
               icon: Icon(Icons.shopping_cart),
             ),
           )
