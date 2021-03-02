@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foruandher/providers/Cart.dart' show Cart;
+import 'package:foruandher/providers/Orders.dart';
 import 'package:foruandher/screens/cart_item.dart' as ci;
 import 'package:provider/provider.dart';
 
@@ -41,12 +42,19 @@ class CartScreen extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
+                  // ignore: deprecated_member_use
                   FlatButton(
                       child: Text(
                         'Order Now',
                       ),
                       textColor: Theme.of(context).primaryColor,
-                      onPressed: () {})
+                      onPressed: () {
+                        Provider.of<Orders>(context, listen: false).addOrder(
+                          cart.items.values.toList(),
+                          cart.totalAmount,
+                        );
+                        cart.clear();
+                      })
                 ],
               ),
             ),

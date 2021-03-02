@@ -65,4 +65,10 @@ class Cart with ChangeNotifier {
   void removeItem(String productId) {
     _items.remove(productId);
   }
+
+  // ignore: non_constant_identifier_names
+  void clear() {
+    _items = {};
+    notifyListeners();
+  }
 }
