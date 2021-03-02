@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foruandher/providers/Cart.dart';
+import 'package:foruandher/providers/Cart.dart' show Cart;
+import 'package:foruandher/screens/cart_item.dart' as ci;
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -47,6 +48,20 @@ class CartScreen extends StatelessWidget {
                       textColor: Theme.of(context).primaryColor,
                       onPressed: () {})
                 ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: cart.itemCount,
+              itemBuilder: (ctx, i) => ci.CartItem(
+                id: cart.items.values.toList()[i].id,
+                title: cart.items.values.toList()[i].title,
+                quantity: cart.items.values.toList()[i].quantity,
+                price: cart.items.values.toList()[i].price,
               ),
             ),
           ),
