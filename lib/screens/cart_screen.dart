@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foruandher/providers/Cart.dart' show Cart;
 import 'package:foruandher/providers/Orders.dart';
-import 'package:foruandher/screens/cart_item.dart' as ci;
+import 'file:///C:/Users/TAMMAM/foruandher/lib/widgets/cart_item.dart' as ci;
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
