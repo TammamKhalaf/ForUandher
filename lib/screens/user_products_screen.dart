@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:foruandher/screens/edit_product_screen.dart';
 import 'package:foruandher/widgets/app_drawer.dart';
 import 'package:foruandher/widgets/user_product_item.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class UserProductsScreen extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                //...
+                Navigator.of(context).pushNamed(EditProductScreen.routeName);
               })
         ],
       ),
