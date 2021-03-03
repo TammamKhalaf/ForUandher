@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foruandher/providers/Cart.dart' show Cart;
 import 'package:foruandher/providers/Orders.dart';
-import 'file:///C:/Users/TAMMAM/foruandher/lib/widgets/cart_item.dart' as ci;
 import 'package:provider/provider.dart';
+
+import 'file:///C:/Users/TAMMAM/foruandher/lib/widgets/cart_item.dart' as ci;
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -35,7 +36,7 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\£${cart.totalAmount}',
+                      '\£${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Theme.of(context).primaryTextTheme.title.color,
                       ),
