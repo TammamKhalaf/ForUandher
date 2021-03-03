@@ -3,6 +3,7 @@ import 'package:foruandher/providers/Cart.dart';
 import 'package:foruandher/providers/Orders.dart';
 import 'package:foruandher/providers/products.dart';
 import 'package:foruandher/screens/cart_screen.dart';
+import 'package:foruandher/screens/orders_screen.dart';
 import 'package:foruandher/screens/product_detail_screen.dart';
 import 'package:foruandher/screens/products_overview_screen.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
+          OrdersScreen.routeName: (ctx) => OrdersScreen(),
         },
       ),
     );
