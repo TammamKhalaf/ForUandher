@@ -69,12 +69,8 @@ class Products with ChangeNotifier {
   }
 
   Future<void> addProduct(Product product) {
-    const url =
-        'https://for-u-and-her-flutter-default-rtdb.firebaseio.com/products.json';
-    return http
-        .post(
-      Uri.parse(url),
-      body: json.encode({
+    const url = 'https://for-u-and-her-flutter-default-rtdb.firebaseio.com/products.json';
+    return http.post(Uri.parse(url), body: json.encode({
         'title': product.title,
         'description': product.description,
         'imageUrl': product.imageUrl,
@@ -83,15 +79,15 @@ class Products with ChangeNotifier {
       }),
     ).then((response) {
       print(json.decode(response.body));
-      final newProduct = Product(
-        title: product.title,
-        description: product.description,
-        price: product.price,
+      final newProduct = Product(title: product.title, description: product.description, price: product.price,
         imageUrl: product.imageUrl,
         id: json.decode(response.body)['name'],
       );
       _items.insert(0, newProduct);
       notifyListeners();
+    }).catchError((error) {
+      print(error);
+      throw error;
     });
   }
 }
