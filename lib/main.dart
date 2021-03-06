@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foruandher/providers/Cart.dart';
+import 'package:foruandher/providers/cart.dart';
 import 'package:foruandher/providers/Orders.dart';
 import 'package:foruandher/providers/products.dart';
 import 'package:foruandher/screens/cart_screen.dart';

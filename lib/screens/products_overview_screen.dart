@@ -1,14 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foruandher/providers/Cart.dart';
-import 'package:foruandher/providers/products.dart';
-import 'package:foruandher/screens/cart_screen.dart';
-import 'package:foruandher/widgets/app_drawer.dart';
-import 'package:foruandher/widgets/badge.dart';
-import 'package:foruandher/widgets/products_grid.dart';
 import 'package:provider/provider.dart';
 
-enum filterOptions { Favorites, All }
+import '../widgets/app_drawer.dart';
+import '../widgets/products_grid.dart';
+import '../widgets/badge.dart';
+import '../providers/cart.dart';
+import './cart_screen.dart';
+import '../providers/products.dart';
+
+enum FilterOptions {
+  Favorites,
+  All,
+}
 
 class ProductsOverviewScreen extends StatefulWidget {
   @override
@@ -22,6 +25,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
+    // Provider.of<Products>(context).fetchAndSetProducts(); // WON'T WORK!
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
     super.initState();
   }
 
@@ -31,7 +38,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       setState(() {
         _isLoading = true;
       });
-
       Provider.of<Products>(context).fetchAndSetProducts().then((_) {
         setState(() {
           _isLoading = false;
@@ -46,38 +52,46 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('For U & her'),
-        actions: [
+        title: Text('For U and her'),
+        actions: <Widget>[
           PopupMenuButton(
-            onSelected: (filterOptions selectedValue) {
+            onSelected: (FilterOptions selectedValue) {
               setState(() {
-                if (selectedValue == filterOptions.Favorites) {
+                if (selectedValue == FilterOptions.Favorites) {
                   _showOnlyFavorites = true;
                 } else {
                   _showOnlyFavorites = false;
                 }
               });
             },
-            icon: Icon(Icons.more_vert),
+            icon: Icon(
+              Icons.more_vert,
+            ),
             itemBuilder: (_) => [
-              PopupMenuItem(
-                  child: Text('Only Favorites'),
-                  value: filterOptions.Favorites),
-              PopupMenuItem(child: Text('Show All'), value: filterOptions.All),
-            ],
+                  PopupMenuItem(
+                    child: Text('Only Favorites'),
+                    value: FilterOptions.Favorites,
+                  ),
+                  PopupMenuItem(
+                    child: Text('Show All'),
+                    value: FilterOptions.All,
+                  ),
+                ],
           ),
           Consumer<Cart>(
             builder: (_, cart, ch) => Badge(
-              value: cart.itemCount.toString(),
-              child: ch,
-            ),
+                  child: ch,
+                  value: cart.itemCount.toString(),
+                ),
             child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
               },
-              icon: Icon(Icons.shopping_cart),
             ),
-          )
+          ),
         ],
       ),
       drawer: AppDrawer(),

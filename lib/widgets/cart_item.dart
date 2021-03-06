@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foruandher/providers/Cart.dart';
+import 'package:foruandher/providers/cart.dart';
 import 'package:provider/provider.dart';
 
 class CartItem extends StatelessWidget {
