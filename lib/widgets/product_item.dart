@@ -18,7 +18,7 @@ class ProductItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
@@ -28,6 +28,13 @@ class ProductItem extends StatelessWidget {
           child: Image.network(
             product.imageUrl,
             fit: BoxFit.cover,
+          ),
+        ),
+        header: GridTileBar(
+          title: Text(
+            product.title,
+            textAlign: TextAlign.center,
+            style:TextStyle(color: Colors.deepOrange),
           ),
         ),
         footer: GridTileBar(
@@ -45,7 +52,7 @@ class ProductItem extends StatelessWidget {
           ),
           backgroundColor: Colors.black87,
           title: Text(
-            product.title,
+            '\£ ${product.price.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
