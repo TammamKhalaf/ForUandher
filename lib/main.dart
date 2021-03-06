@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foruandher/providers/cart.dart';
-import 'package:foruandher/providers/Orders.dart';
+import 'package:foruandher/providers/orders.dart';
 import 'package:foruandher/providers/products.dart';
 import 'package:foruandher/screens/cart_screen.dart';
 import 'package:foruandher/screens/edit_product_screen.dart';
