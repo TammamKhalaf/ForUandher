@@ -139,6 +139,7 @@ class _AuthCardState extends State<AuthCard> {
         await Provider.of<Auth>(context, listen: false)
             .signup(_authData['email'], _authData['password']);
       }
+
     } on HttpException catch (error) {
       var errorMessage = "Authentication Failed";
       if (error.toString().contains("EMAIL_EXISTS")) {
@@ -152,7 +153,6 @@ class _AuthCardState extends State<AuthCard> {
       } else if (error.toString().contains("INVALID_PASSWORD")) {
         errorMessage += " Invalid Password!";
       }
-
       showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage =
