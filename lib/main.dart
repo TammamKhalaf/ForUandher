@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:foruandher/providers/auth.dart';
-import 'package:foruandher/providers/cart.dart';
-import 'package:foruandher/providers/orders.dart';
-import 'package:foruandher/providers/products.dart';
-import 'package:foruandher/screens/auth_screen.dart';
-import 'package:foruandher/screens/cart_screen.dart';
-import 'package:foruandher/screens/edit_product_screen.dart';
-import 'package:foruandher/screens/orders_screen.dart';
-import 'package:foruandher/screens/product_detail_screen.dart';
-import 'package:foruandher/screens/products_overview_screen.dart';
-import 'package:foruandher/screens/user_products_screen.dart';
-import 'package:foruandher/widgets/splash_screen.dart';
 import 'package:provider/provider.dart';
+
+import './helpers/custom_route.dart';
+import './providers/auth.dart';
+import './providers/cart.dart';
+import './providers/orders.dart';
+import './providers/products.dart';
+import './screens/auth_screen.dart';
+import './screens/cart_screen.dart';
+import './screens/edit_product_screen.dart';
+import './screens/orders_screen.dart';
+import './screens/product_detail_screen.dart';
+import './screens/products_overview_screen.dart';
+import './screens/splash_screen.dart';
+import './screens/user_products_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,39 +22,50 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => Auth()),
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
         ChangeNotifierProxyProvider<Auth, Products>(
           update: (ctx, auth, previousProducts) => Products(
-              auth.token,
-              auth.userId,
-              previousProducts == null ? [] : previousProducts.items),
+            auth.token,
+            auth.userId,
+            previousProducts == null ? [] : previousProducts.items,
+          ),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => Cart(),
+        ChangeNotifierProvider.value(
+          value: Cart(),
         ),
-        ChangeNotifierProxyProvider<Auth,Orders>(
-          update: (ctx, auth, previousOrders) => Orders(auth.token, auth.userId,
-              previousOrders == null ? [] : previousOrders.orders),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          update: (ctx, auth, previousOrders) => Orders(
+            auth.token,
+            auth.userId,
+            previousOrders == null ? [] : previousOrders.orders,
+          ),
         ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
-          title: 'For U\n& her',
+          debugShowCheckedModeBanner: false,
+          title: 'MyShop',
           theme: ThemeData(
             primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrangeAccent,
+            accentColor: Colors.deepOrange,
             fontFamily: 'Lato',
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                TargetPlatform.android: CustomPageTransitionBuilder(),
+                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+              },
+            ),
           ),
           home: auth.isAuth
               ? ProductsOverviewScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
+                  authResultSnapshot.connectionState ==
                               ConnectionState.waiting
-                          ? Center(
-                              child: SplashScreen(),
-                            )
+                          ? SplashScreen()
                           : AuthScreen(),
                 ),
           routes: {

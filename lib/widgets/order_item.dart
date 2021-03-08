@@ -28,7 +28,7 @@ class _OrderItemState extends State<OrderItem> {
         child: Column(
           children: <Widget>[
             ListTile(
-              title: Text('\$${widget.order.amount}'),
+              title: Text('Dhs ${widget.order.amount}'),
               subtitle: Text(
                 DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
               ),
@@ -59,7 +59,7 @@ class _OrderItemState extends State<OrderItem> {
                                 ),
                               ),
                               Text(
-                                '${prod.quantity}x \$${prod.price}',
+                                '${prod.quantity}x Dhs${prod.price}',
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.grey,

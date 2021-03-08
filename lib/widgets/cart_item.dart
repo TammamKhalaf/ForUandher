@@ -69,7 +69,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
             title: Text(title),
-            subtitle: Text('Total: \£${(quantity * price)}'),
+            subtitle: Text('Total: Dhs${(quantity * price)}'),
             trailing: Text('$quantity x $price'),
           ),
         ),

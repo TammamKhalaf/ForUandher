@@ -28,7 +28,10 @@ class ProductDetailScreen extends StatelessWidget {
             expandedHeight: 300,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(loadedProduct.title),
+              title: Text(
+                loadedProduct.title,
+                style: TextStyle(color: Colors.deepOrange),
+              ),
               background: Hero(
                 tag: loadedProduct.id,
                 child: Image.network(
@@ -43,7 +46,7 @@ class ProductDetailScreen extends StatelessWidget {
               [
                 SizedBox(height: 10),
                 Text(
-                  '\$${loadedProduct.price}',
+                  'Dhs ${loadedProduct.price}',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 20,

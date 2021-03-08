@@ -56,7 +56,7 @@ class ProductItem extends StatelessWidget {
           ),
           backgroundColor: Colors.black87,
           title: Text(
-            '\£ ${product.price.toStringAsFixed(0)}',
+            'Dhs ${product.price.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(

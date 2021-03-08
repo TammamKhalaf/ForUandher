@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import './cart.dart';
@@ -33,7 +33,6 @@ class Orders with ChangeNotifier {
   Future<void> fetchAndSetOrders() async {
     final url =
         'https://for-u-and-her-flutter-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
-
     final response = await http.get(Uri.parse(url));
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -41,19 +40,23 @@ class Orders with ChangeNotifier {
       return;
     }
     extractedData.forEach((orderId, orderData) {
-      loadedOrders.add(OrderItem(
-        id: orderId,
-        amount: orderData['amount'],
-        dateTime: DateTime.parse(orderData['dateTime']),
-        products: (orderData['products'] as List<dynamic>)
-            .map((item) => CartItem(
+      loadedOrders.add(
+        OrderItem(
+          id: orderId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          products: (orderData['products'] as List<dynamic>)
+              .map(
+                (item) => CartItem(
                   id: item['id'],
-                  title: item['title'],
-                  quantity: item['quantity'],
                   price: item['price'],
-                ))
-            .toList(),
-      ));
+                  quantity: item['quantity'],
+                  title: item['title'],
+                ),
+              )
+              .toList(),
+        ),
+      );
     });
     _orders = loadedOrders.reversed.toList();
     notifyListeners();
@@ -62,31 +65,31 @@ class Orders with ChangeNotifier {
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url =
         'https://for-u-and-her-flutter-default-rtdb.firebaseio.com/orders/$userId.json?auth=$authToken';
-
-    final timeStamp = DateTime.now();
-
-    final response = await http.post(Uri.parse(url),
-        body: json.encode({
-          "amount": total,
-          "dateTime": timeStamp.toIso8601String(),
-          "products": cartProducts
-              .map((cp) => {
-                    "id": cp.id,
-                    "title": cp.title,
-                    "quantity": cp.quantity,
-                    "price": cp.price,
-                  })
-              .toList(),
-        }));
-
+    final timestamp = DateTime.now();
+    final response = await http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'amount': total,
+        'dateTime': timestamp.toIso8601String(),
+        'products': cartProducts
+            .map((cp) => {
+                  'id': cp.id,
+                  'title': cp.title,
+                  'quantity': cp.quantity,
+                  'price': cp.price,
+                })
+            .toList(),
+      }),
+    );
     _orders.insert(
-        0,
-        OrderItem(
-          id: json.decode(response.body)['name'],
-          amount: total,
-          products: cartProducts,
-          dateTime: timeStamp,
-        ));
+      0,
+      OrderItem(
+        id: json.decode(response.body)['name'],
+        amount: total,
+        dateTime: timestamp,
+        products: cartProducts,
+      ),
+    );
     notifyListeners();
   }
 }
